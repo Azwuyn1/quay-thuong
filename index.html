@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quay thưởng</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #111;
+      color: white;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .result {
+      font-size: 24px;
+      margin: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #00bcd4;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: gray;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <h1>Quay số may mắn 🎉</h1>
+  <div class="result">Ấn nút để quay</div>
+  <button id="spinBtn" onclick="spin()">Quay!</button>
+
+  <script>
+    const rewards = [
+      "Giảm giá 5k",
+      "Giảm giá 10k",
+      "Giảm giá 15k",
+      "Giảm giá 20k",
+      "HG Wing Warrior",
+      "HG Calibarn",
+      "HG AERIAL"
+    ];
+
+    const resultDiv = document.querySelector(".result");
+    const spinBtn = document.getElementById("spinBtn");
+
+    // Kiểm tra nếu đã quay rồi
+    const savedResult = localStorage.getItem("userReward");
+    if (savedResult) {
+      resultDiv.textContent = `🎁 Bạn đã quay và nhận: ${savedResult}`;
+      spinBtn.disabled = true;
+    }
+
+    function spin() {
+      const result = rewards[Math.floor(Math.random() * rewards.length)];
+      resultDiv.textContent = `🎁 Bạn nhận được: ${result}`;
+      localStorage.setItem("userReward", result);
+      spinBtn.disabled = true;
+    }
+  </script>
+</body>
+</html>
